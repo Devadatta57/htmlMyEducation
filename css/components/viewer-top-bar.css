@@ -1,0 +1,81 @@
+/* ========================================================
+   viewer-top-bar.css - Sticky bar of the pages that open in
+   a new tab (PDF viewer, video page, page not found), and
+   the Back button + wordmark block below it.
+   ======================================================== */
+
+/* Sticks just below a host site's fixed navbar, if there is one. */
+.top-bar {
+  position: sticky;
+  top: var(--site-header-height, 0px);
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  padding: 12px var(--gutter);
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.top-bar__brand {
+  flex-shrink: 0;
+}
+
+.top-bar__heading {
+  flex: 1 1 240px;
+  min-width: 0;
+  padding-left: 24px;
+  border-left: 1px solid var(--color-border);
+}
+
+.top-bar__title {
+  overflow: hidden;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-navy-deep);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-bar__subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-subtle);
+}
+
+.top-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-left: auto;
+}
+
+/* Phones: the title moves onto its own line below the logo and buttons */
+@media (max-width: 640px) {
+  .top-bar__heading {
+    order: 3;
+    flex-basis: 100%;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+/* Phones on their side: the bar scrolls away with the page instead of covering a fifth of
+   the short screen (and the top of the video player). */
+@media (orientation: landscape) and (max-height: 560px) {
+  .top-bar {
+    position: relative;
+  }
+}
+
+/* ---------- Back button above the wordmark ---------- */
+
+.viewer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}

@@ -1,0 +1,102 @@
+/* ========================================================
+   learning-paths.css - "Choose Your Learning Path" band
+
+   Full-width band: soft lavender background with line-art
+   decorations (learning-paths-decor.css), and the coloured
+   wave at the bottom until a card is explored
+   (.learning-paths--with-wave); after that the wave is at
+   the bottom of the explore section.
+
+   --content-width: the cards take ~72% of wide screens,
+     never less than 960px when there is room, never more
+     than 1060px.
+   --bottom-space: room below the cards for the laptop
+     (and the wave).
+   --laptop-bottom: how far the laptop sits above the
+     section's bottom edge.
+   The decorations use all three.
+   ======================================================== */
+
+.learning-paths {
+  --content-width: min(100% - 2 * var(--gutter), max(72vw, 960px), 1060px);
+  --bottom-space: clamp(120px, 9vw, 145px);
+  --laptop-bottom: clamp(16px, 1.6vw, 28px);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(24px, 1.8vw, 32px) 0 var(--bottom-space);
+  background: linear-gradient(180deg, var(--color-page) 0%, #f8f6fd 18%, #f9f7fd 100%);
+}
+
+/* More room below the cards, with the laptop raised onto the wave */
+.learning-paths--with-wave {
+  --bottom-space: clamp(150px, 10.5vw, 175px);
+  --laptop-bottom: clamp(30px, 3.6vw, 56px);
+}
+
+.learning-paths__inner {
+  position: relative;
+  z-index: 1;
+  width: var(--content-width);
+  margin: 0 auto;
+}
+
+.learning-paths__header {
+  margin-bottom: clamp(24px, 2.3vw, 36px);
+  text-align: center;
+}
+
+.learning-paths__heading {
+  font-size: clamp(1.8rem, 4.2vw, 3.45rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-navy-deep);
+}
+
+/* Orange into pink across "Learning Path" */
+.learning-paths__highlight {
+  position: relative;
+  background: linear-gradient(90deg, #ff6f0f 0%, #f85a24 45%, #f23e66 68%, #ec2c7c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+}
+
+/* Hand-drawn underline beneath "Learning" */
+.learning-paths__highlight::before {
+  content: '';
+  position: absolute;
+  left: -1%;
+  right: 37%;
+  bottom: -0.16em;
+  height: 0.26em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='u' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23ff6f0f'/%3E%3Cstop offset='1' stop-color='%23ef3f6b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M3 11C60 4 140 2 197 6' stroke='url(%23u)' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat center / 100% 100%;
+}
+
+.learning-paths__subheading {
+  margin-top: clamp(8px, 1vw, 14px);
+  font-size: clamp(0.95rem, 1.5vw, 1.35rem);
+  line-height: 1.5;
+  color: #3b4256;
+}
+
+/*
+ * One column on phones, two side by side on wider screens. Every row is 1fr, so
+ * all cards take the height of the tallest one.
+ */
+.learning-paths__cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+  gap: clamp(14px, 1.4vw, 20px);
+}
+
+@media (min-width: 640px) {
+  .learning-paths__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

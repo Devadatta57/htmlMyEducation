@@ -1,0 +1,135 @@
+/* ========================================================
+   learning-paths-decor.css - Line-art study icons around the
+   learning-path cards. Purely decorative.
+
+   Fills the section behind its content. --edge is where the
+   card column starts (from the section's --content-width),
+   so icons sit just outside it the way the design places
+   them; offsets and sizes are in vw to keep its proportions.
+   --bottom-space (room left below the cards) and
+   --laptop-bottom also come from the section.
+   ======================================================== */
+
+.paths-decor {
+  --edge: max(var(--gutter), (100% - var(--content-width)) / 2);
+
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Icons take their height from the viewBox. */
+.paths-decor > svg {
+  position: absolute;
+}
+
+.paths-decor__line {
+  fill: none;
+  stroke: #b090f5;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Soft shapes at the edges ---------- */
+
+.paths-decor__blob-left {
+  top: clamp(60px, 7.8vw, 130px);
+  left: 0;
+  width: clamp(120px, 12vw, 200px);
+  fill: #ede6fb;
+}
+
+.paths-decor__blob-right {
+  top: clamp(80px, 10vw, 160px);
+  right: 0;
+  width: clamp(90px, 8.5vw, 140px);
+  fill: #fde9dc;
+}
+
+/* ---------- Top corners ---------- */
+
+.paths-decor__cap {
+  top: clamp(10px, 3vw, 48px);
+  left: max(8px, calc(var(--edge) - 5.4vw));
+  width: clamp(70px, 7.85vw, 124px);
+  transform: rotate(-12deg);
+}
+
+.paths-decor__book {
+  top: clamp(20px, 2.7vw, 44px);
+  right: max(8px, calc(var(--edge) - 5.8vw));
+  width: clamp(80px, 9.65vw, 152px);
+  transform: rotate(18deg);
+}
+
+.paths-decor__dots {
+  top: clamp(10px, 1.5vw, 26px);
+  right: max(8px, calc(var(--edge) - 9.3vw));
+  width: clamp(44px, 3.8vw, 60px);
+  fill: #f8a35c;
+}
+
+/* ---------- Beside and below the cards ---------- */
+
+.paths-decor__books {
+  bottom: calc(var(--bottom-space) - 28px);
+  left: max(8px, calc(var(--edge) - 8.9vw));
+  width: clamp(96px, 8vw, 128px);
+  stroke: #f59a3c;
+  stroke-width: 2.4;
+}
+
+.paths-decor__pencils {
+  right: max(8px, calc(var(--edge) - 7.5vw));
+  bottom: calc(var(--bottom-space) - 32px);
+  width: clamp(56px, 4.95vw, 80px);
+}
+
+.paths-decor__laptop {
+  left: 50%;
+  bottom: var(--laptop-bottom);
+  width: clamp(76px, 7.8vw, 120px);
+  stroke-width: 2.6;
+  transform: translateX(-50%);
+}
+
+/* ---------- Show the side pieces only where there is room for them ---------- */
+
+.paths-decor__blob-left,
+.paths-decor__blob-right,
+.paths-decor__cap,
+.paths-decor__book,
+.paths-decor__dots,
+.paths-decor__books,
+.paths-decor__pencils {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .paths-decor__cap,
+  .paths-decor__book {
+    display: block;
+  }
+}
+
+@media (min-width: 900px) {
+  .paths-decor__blob-left,
+  .paths-decor__blob-right {
+    display: block;
+  }
+}
+
+@media (min-width: 1200px) {
+  .paths-decor__books,
+  .paths-decor__pencils {
+    display: block;
+  }
+}
+
+@media (min-width: 1280px) {
+  .paths-decor__dots {
+    display: block;
+  }
+}

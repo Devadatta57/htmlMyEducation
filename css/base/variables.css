@@ -1,0 +1,68 @@
+/* ========================================================
+   variables.css - Design tokens shared by every page.
+
+   Breakpoints used across the stylesheets (media queries
+   cannot read custom properties, so they are listed here):
+     380px   small phones
+     560px   phones
+     640px   large phones / two learning-path cards
+     900px   small tablets
+     960px   video page: player and "More videos" side by side
+     1200px  laptops
+     1460px  wide screens
+   ======================================================== */
+
+:root {
+  /* Brand */
+  --color-navy: #13245c;
+  --color-navy-deep: #0d1a45;
+  --color-orange: #f26419;
+  --color-orange-light: #ff8a3d;
+  --color-green: #2f9e44;
+  --color-blue: #1e7bf2;
+  --color-blue-light: #46a0ff;
+  --color-purple: #6d3fe0;
+  --color-purple-light: #8b5cf6;
+
+  /* Surfaces & text */
+  --color-page: #fbf9f6;
+  --color-surface: #ffffff;
+  --color-border: #ece8f2;
+  --color-text: #1a2340;
+  --color-text-muted: #5b6474;
+  --color-text-subtle: #8a91a1;
+
+  /* Accent tints */
+  --tint-orange: #fff1e7;
+  --tint-purple: #efeaff;
+  --tint-blue: #eaf3ff;
+
+  /* Typography */
+  --font-sans: 'Poppins', 'Noto Sans Telugu', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Shape & depth */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --shadow-card: 0 24px 60px -28px rgba(19, 36, 92, 0.28), 0 2px 8px rgba(19, 36, 92, 0.05);
+  --shadow-soft: 0 10px 30px -16px rgba(19, 36, 92, 0.25);
+
+  /* Layout */
+  --container-width: 1040px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --wave-height: clamp(60px, 10vw, 160px); /* coloured wave at a section's bottom (section-wave.css) */
+
+  /* Full screen height: the small viewport unit keeps mobile pages from jumping when the
+     browser's address bar slides away (plain vh is the fallback for older browsers). */
+  --screen-height: 100vh;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@supports (height: 100svh) {
+  :root {
+    --screen-height: 100svh;
+  }
+}

@@ -1,0 +1,60 @@
+/* ========================================================
+   logo.css - Brand logo, in three variants
+
+   --hero     large "MY EDUCATION" wordmark (home page)
+   --section  smaller wordmark (top of the PDF / video pages)
+   --compact  FEED emblem + "FEED STARTUP" (top bars)
+   ======================================================== */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+}
+
+.logo__wordmark {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.logo__primary {
+  color: var(--color-navy);
+}
+
+.logo__accent {
+  background: linear-gradient(180deg, #ff9442 0%, #f26419 60%, #e4520e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hero: large wordmark on its own. The wordmark is ~7.5em wide, so on the narrowest
+   phones (under ~310px) its minimum size shrinks with the screen to stay on one line. */
+.logo--hero .logo__wordmark {
+  font-size: clamp(min(2.3rem, (100vw - 2rem) / 7.6), 6.4vw, 4.4rem);
+  filter: drop-shadow(0 2px 14px rgba(255, 255, 255, 0.85));
+}
+
+/* Section: wordmark at the top of the PDF and video pages */
+.logo--section .logo__wordmark {
+  font-size: clamp(1.4rem, 3.2vw, 1.9rem);
+}
+
+/* Compact: inline for top bars, FEED emblem then "FEED STARTUP" in black */
+.logo--compact {
+  gap: 10px;
+}
+
+.logo__mark {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.logo--compact .logo__wordmark {
+  font-size: 1.25rem;
+  color: #000;
+}

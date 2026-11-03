@@ -1,0 +1,62 @@
+/* ========================================================
+   hero.css - Home page header: big wordmark over a soft sky
+   gradient, the students photo, and a wave into the page.
+   ======================================================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 55% at 50% 8%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, #cfe5ff 0%, #e6f1ff 38%, #fbf6ef 100%);
+}
+
+/* Starts below a host site's fixed navbar, if there is one (see header-offset.js). */
+.hero__brand {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: calc(var(--site-header-height, 0px) + clamp(44px, 6vw, 92px)) var(--gutter) 0;
+}
+
+/*
+ * Tucked a little under the logo for a soft blend, but only so far that the
+ * tallest student's head (about 5% of the page width below the photo's top)
+ * stays ~24px clear of the logo at every width.
+ */
+.hero__media {
+  position: relative;
+  margin-top: calc(24px - 4.6vw);
+}
+
+.hero__image {
+  width: 100%;
+  height: clamp(300px, 48vw, 800px);
+  object-fit: cover;
+  object-position: 50% 28%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 20%);
+}
+
+.hero__wave {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: clamp(40px, 9vw, 136px);
+}
+
+/* On wide screens the height cap crops the photo; crop the bottom, not the heads. */
+@media (min-width: 1460px) {
+  .hero__image {
+    object-position: 50% 0%;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero__image {
+    object-position: 42% 40%;
+  }
+}

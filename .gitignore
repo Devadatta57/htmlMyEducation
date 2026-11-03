@@ -1,0 +1,11 @@
+# OS / editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.swp
+
+# Logs
+*.log

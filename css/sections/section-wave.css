@@ -1,0 +1,15 @@
+/* ========================================================
+   section-wave.css - Purple → pink → orange wave along the
+   bottom of a section. The section must be positioned and
+   leave --wave-height of room at its bottom.
+   ======================================================== */
+
+.section-wave {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--wave-height);
+  pointer-events: none;
+}

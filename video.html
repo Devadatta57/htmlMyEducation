@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video · My Education</title>
+    <meta name="description" content="Watch a My Education video lesson on export processes and global trade." />
+    <meta name="theme-color" content="#13245c" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+
+    <!-- Styles: base -> components -> page -->
+    <link rel="stylesheet" href="css/base/fonts.css" />
+    <link rel="stylesheet" href="css/base/variables.css" />
+    <link rel="stylesheet" href="css/base/reset.css" />
+    <link rel="stylesheet" href="css/base/base.css" />
+    <link rel="stylesheet" href="css/components/button.css" />
+    <link rel="stylesheet" href="css/components/logo.css" />
+    <link rel="stylesheet" href="css/components/spinner.css" />
+    <link rel="stylesheet" href="css/components/status-message.css" />
+    <link rel="stylesheet" href="css/components/viewer-top-bar.css" />
+    <link rel="stylesheet" href="css/components/video-card.css" />
+    <link rel="stylesheet" href="css/components/video-player.css" />
+    <link rel="stylesheet" href="css/pages/video-watch.css" />
+
+    <!-- Scripts: deferred, run in this order after the page is parsed -->
+    <script src="js/config.js" defer></script>
+    <script src="js/utils/dom.js" defer></script>
+    <script src="js/utils/routes.js" defer></script>
+    <script src="js/utils/format-time.js" defer></script>
+    <script src="js/utils/icons.js" defer></script>
+    <script src="js/utils/header-offset.js" defer></script>
+    <script src="js/services/api-client.js" defer></script>
+    <script src="js/data/mock-videos.js" defer></script>
+    <script src="js/services/video-service.js" defer></script>
+    <script src="js/services/loop-preference.js" defer></script>
+    <script src="js/components/ui.js" defer></script>
+    <script src="js/components/video-card.js" defer></script>
+    <script src="js/components/video-player.js" defer></script>
+    <script src="js/pages/video-watch.js" defer></script>
+  </head>
+
+  <body>
+    <div class="watch-page">
+      <header class="top-bar">
+        <div class="top-bar__brand">
+          <div class="logo logo--compact">
+            <img class="logo__mark" src="assets/images/feedlogo.jpg" alt="" width="160" height="160" />
+            <span class="logo__wordmark">FEED STARTUP</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="watch-page__layout">
+        <div class="viewer-brand watch-page__brand">
+          <a class="btn btn--secondary btn--sm" href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="m12 19-7-7 7-7" />
+              <path d="M19 12H5" />
+            </svg>
+            Back
+          </a>
+          <div class="logo logo--section">
+            <span class="logo__wordmark"><span class="logo__primary">MY</span> <span class="logo__accent">EDUCATION</span></span>
+          </div>
+        </div>
+
+        <div id="video-primary" class="watch-page__primary" aria-busy="true">
+          <!-- Spinner, then the player (or an error message) -->
+          <div id="video-stage">
+            <div class="watch-page__player-placeholder">
+              <div class="spinner" role="status">
+                <span class="spinner__ring" aria-hidden="true"></span>
+                <span class="visually-hidden">Loading video</span>
+              </div>
+            </div>
+            <noscript>
+              <p class="watch-page__description">Turn on JavaScript to watch this video.</p>
+            </noscript>
+          </div>
+
+          <section id="video-details" class="watch-page__details" hidden>
+            <p class="watch-page__eyebrow">Export Education · Video lesson</p>
+            <h1 id="video-title" class="watch-page__title"></h1>
+            <p id="video-description" class="watch-page__description" hidden></p>
+          </section>
+
+          <details id="video-shortcuts" class="shortcuts" hidden>
+            <summary class="shortcuts__summary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M10 8h.01" />
+                <path d="M12 12h.01" />
+                <path d="M14 8h.01" />
+                <path d="M16 12h.01" />
+                <path d="M18 8h.01" />
+                <path d="M6 8h.01" />
+                <path d="M7 16h10" />
+                <path d="M8 12h.01" />
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+              </svg>
+              Keyboard shortcuts
+            </summary>
+            <dl class="shortcuts__list">
+              <div><dt>Play / pause</dt><dd><kbd>Space</kbd><kbd>K</kbd></dd></div>
+              <div><dt>Back 10 seconds</dt><dd><kbd>←</kbd><kbd>J</kbd></dd></div>
+              <div><dt>Forward 10 seconds</dt><dd><kbd>→</kbd><kbd>L</kbd></dd></div>
+              <div><dt>Volume up / down</dt><dd><kbd>↑</kbd><kbd>↓</kbd></dd></div>
+              <div><dt>Mute / unmute</dt><dd><kbd>M</kbd></dd></div>
+              <div><dt>Loop on / off</dt><dd><kbd>R</kbd></dd></div>
+              <div><dt>Slower / faster</dt><dd><kbd>&lt;</kbd><kbd>&gt;</kbd></dd></div>
+              <div><dt>Full screen</dt><dd><kbd>F</kbd></dd></div>
+              <div><dt>Picture-in-picture</dt><dd><kbd>P</kbd></dd></div>
+              <div><dt>Jump to 0% – 90%</dt><dd><kbd>0 – 9</kbd></dd></div>
+            </dl>
+          </details>
+        </div>
+
+        <!-- The other videos, filled in once the list has loaded -->
+        <aside id="more-videos" class="watch-page__sidebar" aria-labelledby="more-videos-title" hidden>
+          <h2 id="more-videos-title" class="watch-page__sidebar-title">More videos</h2>
+          <ul id="more-videos-list" class="watch-page__sidebar-list"></ul>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

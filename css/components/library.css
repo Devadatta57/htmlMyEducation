@@ -1,0 +1,90 @@
+/* ========================================================
+   library.css - The PDF and video lists that a learning-path
+   card's Explore button opens (white panel with a header).
+
+   .library--pdfs   orange-tinted header, numbered rows
+   .library--videos violet-tinted header, video cards
+   ======================================================== */
+
+.library {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.library__header {
+  padding: 24px clamp(18px, 3vw, 32px) 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.library--pdfs .library__header {
+  background: linear-gradient(180deg, #fff6f0 0%, #ffffff 100%);
+}
+
+.library--videos .library__header {
+  background: linear-gradient(180deg, #f3f0ff 0%, #ffffff 100%);
+}
+
+.library__top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.library__eyebrow {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-navy-deep);
+}
+
+.library__badge {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--tint-blue);
+  color: var(--color-blue);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.library__title {
+  margin-top: 6px;
+  font-size: clamp(1.25rem, 2.6vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-purple);
+}
+
+.library__caption {
+  margin-top: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+/* ---------- Lists ---------- */
+
+.pdf-list {
+  margin: 0;
+  padding: 6px clamp(8px, 1.5vw, 16px) 10px;
+  list-style: none;
+}
+
+.pdf-list > li + li {
+  border-top: 1px solid #f1eef5;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: clamp(14px, 2.5vw, 24px);
+  list-style: none;
+}

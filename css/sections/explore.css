@@ -1,0 +1,27 @@
+/* ========================================================
+   explore.css - Section below the learning-path cards that
+   shows the list an Explore button opened (PDFs or videos).
+
+   At least a screen tall, so Explore can always scroll it to
+   the top of the screen (below a host site's fixed navbar),
+   even while its list is still loading. The bottom padding
+   keeps the list clear of the coloured wave.
+   ======================================================== */
+
+.explore {
+  position: relative;
+  min-height: calc(var(--screen-height) - var(--site-header-height, 0px));
+  padding: clamp(28px, 4vw, 56px) 0 calc(var(--wave-height) + clamp(24px, 3vw, 48px));
+  background: var(--color-page);
+}
+
+/* Focused after Explore so the keyboard continues from the list; no ring around it all. */
+.explore:focus {
+  outline: none;
+}
+
+/* Same width as the learning-path cards above */
+.explore__inner {
+  width: min(100% - 2 * var(--gutter), max(72vw, 960px), 1060px);
+  margin: 0 auto;
+}

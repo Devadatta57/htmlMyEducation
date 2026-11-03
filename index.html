@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Education</title>
+    <meta
+      name="description"
+      content="My Education – learn how agriculture products reach global markets through international trade, export processes and global opportunities."
+    />
+    <meta name="theme-color" content="#13245c" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+
+    <!-- Styles: base -> components -> sections -->
+    <link rel="stylesheet" href="css/base/fonts.css" />
+    <link rel="stylesheet" href="css/base/variables.css" />
+    <link rel="stylesheet" href="css/base/reset.css" />
+    <link rel="stylesheet" href="css/base/base.css" />
+    <link rel="stylesheet" href="css/components/button.css" />
+    <link rel="stylesheet" href="css/components/logo.css" />
+    <link rel="stylesheet" href="css/components/spinner.css" />
+    <link rel="stylesheet" href="css/components/status-message.css" />
+    <link rel="stylesheet" href="css/components/path-card.css" />
+    <link rel="stylesheet" href="css/components/library.css" />
+    <link rel="stylesheet" href="css/components/pdf-item.css" />
+    <link rel="stylesheet" href="css/components/video-card.css" />
+    <link rel="stylesheet" href="css/sections/hero.css" />
+    <link rel="stylesheet" href="css/sections/learning-paths.css" />
+    <link rel="stylesheet" href="css/sections/learning-paths-decor.css" />
+    <link rel="stylesheet" href="css/sections/section-wave.css" />
+    <link rel="stylesheet" href="css/sections/explore.css" />
+
+    <!-- Scripts: deferred, run in this order after the page is parsed -->
+    <script src="js/config.js" defer></script>
+    <script src="js/utils/dom.js" defer></script>
+    <script src="js/utils/routes.js" defer></script>
+    <script src="js/utils/format-time.js" defer></script>
+    <script src="js/utils/icons.js" defer></script>
+    <script src="js/utils/header-offset.js" defer></script>
+    <script src="js/services/api-client.js" defer></script>
+    <script src="js/data/mock-pdfs.js" defer></script>
+    <script src="js/data/mock-videos.js" defer></script>
+    <script src="js/services/pdf-service.js" defer></script>
+    <script src="js/services/video-service.js" defer></script>
+    <script src="js/services/loop-preference.js" defer></script>
+    <script src="js/components/ui.js" defer></script>
+    <script src="js/components/library.js" defer></script>
+    <script src="js/components/pdf-library.js" defer></script>
+    <script src="js/components/video-card.js" defer></script>
+    <script src="js/components/video-library.js" defer></script>
+    <script src="js/pages/home.js" defer></script>
+  </head>
+
+  <body>
+    <!-- ==================== Hero ==================== -->
+    <header class="hero">
+      <div class="hero__brand">
+        <div class="logo logo--hero">
+          <h1 class="logo__wordmark">
+            <span class="logo__primary">MY</span> <span class="logo__accent">EDUCATION</span>
+          </h1>
+        </div>
+      </div>
+
+      <div class="hero__media">
+        <img
+          class="hero__image"
+          src="assets/images/myeducationheader.webp"
+          srcset="assets/images/myeducationheader-800.webp 800w, assets/images/myeducationheader.webp 1600w"
+          sizes="100vw"
+          width="1600"
+          height="800"
+          alt="Students learning export management, international trade and customs procedures together on a laptop"
+          fetchpriority="high"
+        />
+
+        <svg class="hero__wave" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M0 0C150 84 420 132 780 128C1080 124 1300 92 1440 52V150H0Z" fill="#dbe8fb" opacity="0.85" />
+          <path d="M0 14C140 96 400 146 780 142C1070 138 1290 112 1440 78V150H0Z" fill="var(--color-page)" />
+        </svg>
+      </div>
+    </header>
+
+    <main>
+      <!-- ==================== Learning paths ==================== -->
+      <section id="learning-paths" class="learning-paths learning-paths--with-wave" aria-labelledby="learning-paths-heading">
+        <!-- Line-art study icons around the cards -->
+        <div class="paths-decor" aria-hidden="true">
+          <!-- Soft colour shapes at the left and right edges -->
+          <svg class="paths-decor__blob-left" viewBox="0 0 240 240" focusable="false">
+            <path d="M0 10C70 0 160 10 240 30 150 60 70 130 0 240Z" />
+          </svg>
+          <svg class="paths-decor__blob-right" viewBox="0 0 150 110" focusable="false">
+            <path d="M150 0C110 15 60 55 0 110 50 100 110 104 150 108Z" />
+          </svg>
+
+          <!-- Graduation cap -->
+          <svg class="paths-decor__line paths-decor__cap" viewBox="0 0 130 92" focusable="false">
+            <path d="M8 30 65 9l57 21-57 21z" />
+            <path d="M32 40v17c0 8 15 13 33 13s33-5 33-13V40" />
+            <path d="M65 30c-18 3-34 7-46 11v20" />
+            <path d="M14 61h10l3 16H11z" />
+          </svg>
+
+          <!-- Open book -->
+          <svg class="paths-decor__line paths-decor__book" viewBox="0 0 160 118" focusable="false">
+            <path d="M80 28C62 16 36 12 12 16v74c24-4 50 0 68 12z" />
+            <path d="M80 28c18-12 44-16 68-12v74c-24-4-50 0-68 12z" />
+            <path d="M12 24H4v76c28-4 56-2 76 10 20-12 48-14 76-10V24h-8" />
+            <path d="M24 34c16-2 32 0 44 6M24 48c16-2 32 0 44 6M24 62c16-2 32 0 44 6" />
+            <path d="M92 40c12-6 28-8 44-6M92 54c12-6 28-8 44-6M92 68c12-6 28-8 44-6" />
+          </svg>
+
+          <!-- Dot grid -->
+          <svg class="paths-decor__dots" viewBox="0 0 64 50" focusable="false">
+            <circle cx="6" cy="6" r="3.2" /><circle cx="32" cy="6" r="3.2" /><circle cx="58" cy="6" r="3.2" />
+            <circle cx="6" cy="25" r="3.2" /><circle cx="32" cy="25" r="3.2" /><circle cx="58" cy="25" r="3.2" />
+            <circle cx="6" cy="44" r="3.2" /><circle cx="32" cy="44" r="3.2" /><circle cx="58" cy="44" r="3.2" />
+          </svg>
+
+          <!-- Stack of three closed books, the top one tilted -->
+          <svg class="paths-decor__line paths-decor__books" viewBox="2 28 132 86" focusable="false">
+            <g>
+              <path d="M8 91H112l14 -10H22z" fill="#fff4e6" />
+              <path d="M12 91H112v21H12q-6 0-6-6v-9q0-6 6-6z" fill="#ffe9d1" />
+              <path d="M112 91l14 -10v21l-14 10z" fill="#fffaf3" />
+              <path d="M114 97.67l10 -7.142857142857143M114 102.92l10 -7.142857142857143M114 108.17l10 -7.142857142857143M19 91v21" />
+            </g>
+            <g>
+              <path d="M18 70H114l14 -10H32z" fill="#fff4e6" />
+              <path d="M22 70H114v21H22q-6 0-6-6v-9q0-6 6-6z" fill="#ffe9d1" />
+              <path d="M114 70l14 -10v21l-14 10z" fill="#fffaf3" />
+              <path d="M116 76.67l10 -7.142857142857143M116 81.92l10 -7.142857142857143M116 87.17l10 -7.142857142857143M29 70v21" />
+            </g>
+            <g transform="rotate(-4 14 70)">
+              <path d="M16 49H110l14 -10H30z" fill="#fff4e6" />
+              <path d="M20 49H110v21H20q-6 0-6-6v-9q0-6 6-6z" fill="#ffe9d1" />
+              <path d="M110 49l14 -10v21l-14 10z" fill="#fffaf3" />
+              <path d="M112 55.67l10 -7.142857142857143M112 60.92l10 -7.142857142857143M112 66.17l10 -7.142857142857143M27 49v21" />
+            </g>
+          </svg>
+
+          <!-- Pencil cup -->
+          <svg class="paths-decor__line paths-decor__pencils" viewBox="0 0 100 132" focusable="false">
+            <defs>
+              <linearGradient id="decor-pencil-gradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#fb923c" />
+                <stop offset="1" stop-color="#ec4899" />
+              </linearGradient>
+            </defs>
+            <g stroke="url(#decor-pencil-gradient)">
+              <path d="M30 62 18 26l1-14 9 10 12 38M18 26l10-4" />
+              <path d="M44 62V22l6-14 6 14v40M44 22h12" />
+              <path d="M62 62 74 24l9-9-1 13-10 34M74 24l8 4" />
+              <path d="M18 62h64l-7 60a6 6 0 0 1-6 5H31a6 6 0 0 1-6-5z" />
+            </g>
+          </svg>
+
+          <!-- Open laptop with a graduation cap on screen -->
+          <svg class="paths-decor__line paths-decor__laptop" viewBox="0 0 140 96" focusable="false">
+            <rect x="22" y="6" width="96" height="70" rx="7" fill="#f5f0ff" />
+            <rect x="29" y="13" width="82" height="52" rx="3" fill="#fff" />
+            <path d="M14 76h112l10 12.5a3 3 0 0 1-2.5 4.5H6.5A3 3 0 0 1 4 88.5z" fill="#f5f0ff" />
+            <path d="M60 93v-2.5q0-1.5 1.5-1.5h17q1.5 0 1.5 1.5V93" />
+            <path d="M58 37.5v7c0 3.5 5.4 6 12 6s12-2.5 12-6v-7" fill="#ece3ff" />
+            <path d="M70 24 92 32.5 70 41 48 32.5z" fill="#ece3ff" />
+            <path d="M92 32.5v10M90 42.5h4l1 5h-6z" fill="#ece3ff" />
+          </svg>
+        </div>
+
+        <!-- Coloured wave under the cards, until a card's list is opened -->
+        <svg id="learning-paths-wave" class="section-wave" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="paths-wave-back" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#e4d4ff" />
+              <stop offset="0.5" stop-color="#fbcfe8" />
+              <stop offset="1" stop-color="#ffd8b0" />
+            </linearGradient>
+            <linearGradient id="paths-wave-front" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#8b3dff" />
+              <stop offset="0.35" stop-color="#c43df0" />
+              <stop offset="0.65" stop-color="#f0468a" />
+              <stop offset="1" stop-color="#ffa62b" />
+            </linearGradient>
+          </defs>
+          <path d="M0 48C260 18 500 88 760 108C1000 126 1250 58 1440 8V160H0Z" fill="url(#paths-wave-back)" opacity="0.75" />
+          <path d="M0 72C200 42 420 82 700 128C950 162 1200 120 1440 82V160H0Z" fill="url(#paths-wave-front)" />
+        </svg>
+
+        <div class="learning-paths__inner">
+          <header class="learning-paths__header">
+            <h2 id="learning-paths-heading" class="learning-paths__heading">
+              Choose Your <span class="learning-paths__highlight">Learning Path</span>
+            </h2>
+            <p class="learning-paths__subheading">
+              Pick a path that matches your goals and start building your future.
+            </p>
+          </header>
+
+          <div class="learning-paths__cards">
+            <!-- PDFs -->
+            <article class="path-card path-card--orange" aria-labelledby="path-pdfs-title">
+              <div class="path-card__content">
+                <span class="path-card__icon-badge" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                    <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+                    <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                    <path d="M10 9H8" />
+                    <path d="M16 13H8" />
+                    <path d="M16 17H8" />
+                  </svg>
+                </span>
+                <h3 id="path-pdfs-title" class="path-card__title" lang="te">పొలం నుండి ప్రపంచం వరకు – పుస్తకాలు</h3>
+                <p class="path-card__description">
+                  Learn how agriculture products reach global markets through international trade, export
+                  processes and global opportunities.
+                </p>
+                <button type="button" class="path-card__explore" data-explore="pdfs" aria-expanded="false" aria-controls="explore" aria-label="Explore PDFs">
+                  Explore
+                  <svg class="path-card__explore-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+
+              <svg class="path-card__wave" viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M0 120C70 112 130 84 190 52C240 26 285 10 320 4V120Z" fill="var(--wave-light)" />
+                <path d="M60 120C130 116 190 94 240 70C275 53 300 44 320 40V120Z" fill="var(--wave-deep)" />
+              </svg>
+
+              <div class="path-card__media-frame">
+                <img
+                  class="path-card__media"
+                  src="assets/images/myeducationpdf.webp"
+                  srcset="assets/images/myeducationpdf-800.webp 800w, assets/images/myeducationpdf.webp 1600w"
+                  sizes="(max-width: 639px) 100vw, (max-width: 1400px) 37vw, 520px"
+                  width="1600"
+                  height="800"
+                  alt="Students studying together with farm fields on one side and a cargo port on the other"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </article>
+
+            <!-- Videos -->
+            <article class="path-card path-card--violet" aria-labelledby="path-videos-title">
+              <div class="path-card__content">
+                <span class="path-card__icon-badge" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                    <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />
+                  </svg>
+                </span>
+                <h3 id="path-videos-title" class="path-card__title" lang="te">పొలం నుండి ప్రపంచం వరకు – వీడియో పాఠాలు</h3>
+                <p class="path-card__description">
+                  Watch easy step-by-step video lessons on export processes, documentation, shipping and global
+                  trade, and learn at your own pace.
+                </p>
+                <button type="button" class="path-card__explore" data-explore="videos" aria-expanded="false" aria-controls="explore" aria-label="Explore videos">
+                  Explore
+                  <svg class="path-card__explore-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+
+              <svg class="path-card__wave" viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path d="M0 120C70 112 130 84 190 52C240 26 285 10 320 4V120Z" fill="var(--wave-light)" />
+                <path d="M60 120C130 116 190 94 240 70C275 53 300 44 320 40V120Z" fill="var(--wave-deep)" />
+              </svg>
+
+              <div class="path-card__media-frame">
+                <img
+                  class="path-card__media"
+                  src="assets/images/myeducationvideos.webp"
+                  srcset="assets/images/myeducationvideos-800.webp 800w, assets/images/myeducationvideos.webp 1600w"
+                  sizes="(max-width: 639px) 100vw, (max-width: 1400px) 37vw, 520px"
+                  width="1600"
+                  height="800"
+                  alt="Students watching a lesson on a laptop with a globe, airplane and cargo ship behind them"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </article>
+          </div>
+
+          <noscript>
+            <p class="learning-paths__subheading">Turn on JavaScript to explore the PDFs and videos.</p>
+          </noscript>
+        </div>
+      </section>
+
+      <!-- ==================== Explore: the list a card's Explore button opened ==================== -->
+      <div id="explore" class="explore" tabindex="-1" hidden>
+        <div id="explore-list" class="explore__inner"></div>
+
+        <svg class="section-wave" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="explore-wave-back" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#e4d4ff" />
+              <stop offset="0.5" stop-color="#fbcfe8" />
+              <stop offset="1" stop-color="#ffd8b0" />
+            </linearGradient>
+            <linearGradient id="explore-wave-front" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#8b3dff" />
+              <stop offset="0.35" stop-color="#c43df0" />
+              <stop offset="0.65" stop-color="#f0468a" />
+              <stop offset="1" stop-color="#ffa62b" />
+            </linearGradient>
+          </defs>
+          <path d="M0 48C260 18 500 88 760 108C1000 126 1250 58 1440 8V160H0Z" fill="url(#explore-wave-back)" opacity="0.75" />
+          <path d="M0 72C200 42 420 82 700 128C950 162 1200 120 1440 82V160H0Z" fill="url(#explore-wave-front)" />
+        </svg>
+      </div>
+    </main>
+  </body>
+</html>

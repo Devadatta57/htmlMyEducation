@@ -1,0 +1,53 @@
+/* ========================================================
+   status-message.css - Friendly empty / error / info state
+   ======================================================== */
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 36px 20px;
+  text-align: center;
+}
+
+.status__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background: var(--tint-blue);
+  color: var(--color-blue);
+}
+
+.status__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.status--error .status__icon {
+  background: #ffecec;
+  color: #d93a3a;
+}
+
+.status__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.status__message {
+  max-width: 44ch;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.status__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}

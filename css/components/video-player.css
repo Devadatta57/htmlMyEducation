@@ -1,0 +1,591 @@
+/* ========================================================
+   video-player.css - Custom HTML5 video player
+   (js/components/video-player.js builds the markup)
+
+   The player is a size container, so the controls adapt to
+   the player's own width (cqw units, @container queries),
+   not the screen's.
+   ======================================================== */
+
+.player {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #070b1f;
+  color: #fff;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.player:fullscreen {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+/* Landscape phones: a 16:9 player as wide as the page would be taller than the screen.
+   Cap it so the whole video and its controls fit; the video letterboxes inside. */
+@media (orientation: landscape) and (max-height: 560px) {
+  .player {
+    max-height: calc(var(--screen-height) - 24px);
+  }
+}
+
+.player--idle {
+  cursor: none;
+}
+
+.player__video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+/* ---------- Overlays ---------- */
+
+.player__overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px 24px 80px;
+  text-align: center;
+  background:
+    radial-gradient(90% 80% at 0% 0%, rgba(139, 92, 246, 0.85), transparent 60%),
+    radial-gradient(90% 80% at 100% 100%, rgba(30, 123, 242, 0.85), transparent 60%),
+    linear-gradient(135deg, #2c2380, #163f9c);
+}
+
+.player__overlay--on-poster {
+  background: rgba(7, 11, 31, 0.55);
+}
+
+.player__overlay--error {
+  z-index: 2;
+  background: rgba(7, 11, 31, 0.88);
+}
+
+.player__message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  max-width: 420px;
+}
+
+.player__message-icon {
+  width: clamp(44px, 9cqw, 76px);
+  height: clamp(44px, 9cqw, 76px);
+  margin-bottom: 6px;
+  opacity: 0.95;
+}
+
+.player__message-title {
+  font-size: clamp(1.1rem, 3.4cqw, 1.7rem);
+  font-weight: 700;
+}
+
+.player__message-text {
+  font-size: clamp(0.8rem, 1.9cqw, 0.98rem);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.player__overlay-button {
+  margin-top: 10px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--color-navy);
+  font-weight: 600;
+}
+
+.player__center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.player__spinner {
+  width: 56px;
+  height: 56px;
+  animation: player-spin 0.9s linear infinite;
+}
+
+@keyframes player-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.player__big-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(58px, 11cqw, 88px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--color-purple);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.65);
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.player__big-play svg {
+  width: 42%;
+  height: 42%;
+}
+
+.player__big-play-icon {
+  margin-left: 8%;
+}
+
+/* ---------- Control bar ---------- */
+
+.player__controls {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  padding: 48px clamp(8px, 2cqw, 18px) clamp(6px, 1.4cqw, 12px);
+  background: linear-gradient(
+    to top,
+    rgba(5, 8, 26, 0.9) 0%,
+    rgba(5, 8, 26, 0.55) 50%,
+    rgba(5, 8, 26, 0) 100%
+  );
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s var(--ease-out);
+}
+
+.player__controls[data-visible='false'] {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.player__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.player__group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.player__button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #fff;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.player__button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.player__button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.player__button[aria-pressed='true'] {
+  color: var(--color-blue-light);
+}
+
+.player__button[aria-pressed='true']::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+.player__skip-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 0.5rem;
+  font-weight: 700;
+  transform: translate(-50%, -42%);
+}
+
+/* The clock is the only part of the bar that may shrink: on a narrow player a long
+   time ("1:02:15 / 1:02:15") is shortened with "…" instead of pushing buttons out. */
+.player__time {
+  min-width: 0;
+  margin-left: 6px;
+  overflow: hidden;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.player__group:last-child {
+  flex-shrink: 0;
+}
+
+.player__time-divider {
+  margin: 0 5px;
+  opacity: 0.6;
+}
+
+@media (hover: hover) {
+  .player__big-play:hover {
+    transform: translate(-50%, -50%) scale(1.07);
+  }
+
+  .player__button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.14);
+  }
+}
+
+/* ---------- Range inputs (seek + volume) ---------- */
+
+.player__seek,
+.player__volume-slider {
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.player__seek:disabled,
+.player__volume-slider:disabled {
+  cursor: not-allowed;
+}
+
+.player__seek {
+  display: block;
+  width: 100%;
+  height: 16px;
+}
+
+.player__seek::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--color-blue-light) 0 var(--played),
+    rgba(255, 255, 255, 0.5) var(--played) var(--buffered),
+    rgba(255, 255, 255, 0.22) var(--buffered) 100%
+  );
+}
+
+.player__seek::-moz-range-track {
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--color-blue-light) 0 var(--played),
+    rgba(255, 255, 255, 0.5) var(--played) var(--buffered),
+    rgba(255, 255, 255, 0.22) var(--buffered) 100%
+  );
+}
+
+.player__seek::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  margin-top: -4.5px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(70, 160, 255, 0.35);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.player__seek::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(70, 160, 255, 0.35);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+.player:hover .player__seek:not(:disabled)::-webkit-slider-thumb,
+.player__seek:focus-visible::-webkit-slider-thumb {
+  transform: scale(1);
+}
+
+.player:hover .player__seek:not(:disabled)::-moz-range-thumb,
+.player__seek:focus-visible::-moz-range-thumb {
+  transform: scale(1);
+}
+
+/* Touch screens have no hover: always show the thumb so there is something to drag */
+@media (hover: none) {
+  .player__seek:not(:disabled)::-webkit-slider-thumb {
+    transform: scale(1);
+  }
+
+  .player__seek:not(:disabled)::-moz-range-thumb {
+    transform: scale(1);
+  }
+}
+
+.player__volume {
+  display: flex;
+  align-items: center;
+}
+
+.player__volume-slider {
+  width: 0;
+  height: 16px;
+  opacity: 0;
+  transition:
+    width 0.25s var(--ease-out),
+    opacity 0.2s ease,
+    margin 0.25s var(--ease-out);
+}
+
+.player__volume:hover .player__volume-slider,
+.player__volume:focus-within .player__volume-slider {
+  width: 76px;
+  margin: 0 6px 0 2px;
+  opacity: 1;
+}
+
+.player__volume-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    #fff 0 var(--level),
+    rgba(255, 255, 255, 0.3) var(--level) 100%
+  );
+}
+
+.player__volume-slider::-moz-range-track {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    #fff 0 var(--level),
+    rgba(255, 255, 255, 0.3) var(--level) 100%
+  );
+}
+
+.player__volume-slider::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  margin-top: -4px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.player__volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* ---------- Playback speed menu ---------- */
+
+.player__rate-menu {
+  position: relative;
+}
+
+.player__rate-button {
+  width: auto;
+  min-width: 46px;
+  padding: 0 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.player__rate-list {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  min-width: 128px;
+  max-height: max(120px, calc(56.25cqw - 84px));
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  list-style: none;
+  border-radius: 12px;
+  background: rgba(12, 17, 40, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
+}
+
+.player__rate-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.player__rate-option:hover,
+.player__rate-option:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.player__rate-option[aria-checked='true'] {
+  color: var(--color-blue-light);
+  font-weight: 700;
+}
+
+.player__rate-option[aria-checked='true']::after {
+  content: '✓';
+}
+
+/* ---------- Small players (phones) ---------- */
+
+@container (max-width: 560px) {
+  .player__button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .player__button svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .player__volume:hover .player__volume-slider,
+  .player__volume:focus-within .player__volume-slider {
+    width: 0;
+    margin: 0;
+    opacity: 0;
+  }
+
+  .player__time {
+    font-size: 0.72rem;
+  }
+
+  .player__rate-button {
+    min-width: 40px;
+    font-size: 0.76rem;
+  }
+}
+
+/* Small players are short (16:9), so the "no video" / error message drops its second
+   line and stays clear of the control bar. */
+@container (max-width: 480px) {
+  .player__overlay {
+    padding: 12px 16px 64px;
+  }
+
+  .player__message-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 0;
+  }
+
+  .player__message-text {
+    display: none;
+  }
+
+  .player__overlay-button {
+    margin-top: 6px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+
+  /* Every control is disabled after an error, so its message may cover them. */
+  .player__overlay--error {
+    z-index: 4;
+    padding-bottom: 12px;
+  }
+}
+
+@container (max-width: 400px) {
+  .player__skip {
+    display: none;
+  }
+}
+
+/* Narrowest phones (player under ~320px, i.e. screens under ~350px): smaller buttons and
+   no picture-in-picture button, so every control still fits on one row. */
+@container (max-width: 320px) {
+  .player__bar {
+    gap: 4px;
+  }
+
+  .player__button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .player__button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .player__rate-button {
+    min-width: 34px;
+    padding: 0 4px;
+  }
+
+  .player__pip {
+    display: none;
+  }
+
+  .player__time {
+    margin-left: 2px;
+  }
+
+  /* The error title wraps to two lines here; the button matters more than the icon. */
+  .player__overlay--error .player__message-icon {
+    display: none;
+  }
+}

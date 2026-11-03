@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDF · My Education</title>
+    <meta name="description" content="Read a part of the My Education export curriculum." />
+    <meta name="theme-color" content="#13245c" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+
+    <!-- Styles: base -> components -> page -->
+    <link rel="stylesheet" href="css/base/fonts.css" />
+    <link rel="stylesheet" href="css/base/variables.css" />
+    <link rel="stylesheet" href="css/base/reset.css" />
+    <link rel="stylesheet" href="css/base/base.css" />
+    <link rel="stylesheet" href="css/components/button.css" />
+    <link rel="stylesheet" href="css/components/logo.css" />
+    <link rel="stylesheet" href="css/components/spinner.css" />
+    <link rel="stylesheet" href="css/components/status-message.css" />
+    <link rel="stylesheet" href="css/components/viewer-top-bar.css" />
+    <link rel="stylesheet" href="css/pages/pdf-viewer.css" />
+
+    <!-- Scripts: deferred, run in this order after the page is parsed -->
+    <script src="js/config.js" defer></script>
+    <script src="js/utils/dom.js" defer></script>
+    <script src="js/utils/routes.js" defer></script>
+    <script src="js/utils/icons.js" defer></script>
+    <script src="js/utils/header-offset.js" defer></script>
+    <script src="js/services/api-client.js" defer></script>
+    <script src="js/data/mock-pdfs.js" defer></script>
+    <script src="js/services/pdf-service.js" defer></script>
+    <script src="js/components/ui.js" defer></script>
+    <script src="js/pages/pdf-viewer.js" defer></script>
+  </head>
+
+  <body>
+    <div class="pdf-page">
+      <header class="top-bar">
+        <div class="top-bar__brand">
+          <div class="logo logo--compact">
+            <img class="logo__mark" src="assets/images/feedlogo.jpg" alt="" width="160" height="160" />
+            <span class="logo__wordmark">FEED STARTUP</span>
+          </div>
+        </div>
+
+        <!-- Filled in once the PDF has loaded -->
+        <div id="pdf-heading" class="top-bar__heading" hidden>
+          <h1 id="pdf-title" class="top-bar__title"></h1>
+          <p id="pdf-subtitle" class="top-bar__subtitle"></p>
+        </div>
+        <div id="pdf-actions" class="top-bar__actions" hidden></div>
+      </header>
+
+      <main class="pdf-page__main">
+        <div class="viewer-brand">
+          <a class="btn btn--secondary btn--sm" href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="m12 19-7-7 7-7" />
+              <path d="M19 12H5" />
+            </svg>
+            Back
+          </a>
+          <div class="logo logo--section">
+            <span class="logo__wordmark"><span class="logo__primary">MY</span> <span class="logo__accent">EDUCATION</span></span>
+          </div>
+        </div>
+
+        <div id="pdf-viewer" class="pdf-page__viewer" aria-busy="true">
+          <div class="spinner" role="status">
+            <span class="spinner__ring" aria-hidden="true"></span>
+            <span class="visually-hidden">Loading PDF</span>
+          </div>
+          <noscript>
+            <p class="status__message">Turn on JavaScript to view this PDF.</p>
+          </noscript>
+        </div>
+
+        <!-- Previous / next part, filled in once the list has loaded -->
+        <nav id="pdf-pager" class="pager" aria-label="Other parts" hidden></nav>
+      </main>
+    </div>
+  </body>
+</html>
